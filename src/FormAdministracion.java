@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,11 +13,34 @@
  */
 public class FormAdministracion extends javax.swing.JFrame {
 
+    ArrayList<registros> arrayMisRegistros;
+    ArrayList<Usuarios> arrayUsuarios;
+    ArrayList<String> arrayHorasCogidas;
+    ArrayList<String> arrayHoras;
+    Usuarios conectado;
     /**
      * Creates new form FormAdministracion
      */
     public FormAdministracion() {
         initComponents();
+    }
+    public FormAdministracion(ArrayList<String> horascogidas, ArrayList<String> horas, ArrayList<registros> misregistros, ArrayList<Usuarios> usuarios,  Usuarios conected ) {
+        initComponents();
+        arrayMisRegistros = misregistros;
+        arrayUsuarios = usuarios;
+        arrayHorasCogidas = horascogidas;
+        arrayHoras = horas;
+        conectado = conected;
+        
+        if (conected.isAdmin() == true){
+            btnmodificar.setEnabled(false);
+            btnatender.setEnabled(false);
+        }
+        else{
+            btnalta.setEnabled(false);
+            btnbaja.setEnabled(false);
+        }
+        
     }
 
     /**
@@ -26,25 +52,33 @@ public class FormAdministracion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnalta = new javax.swing.JButton();
+        btnbaja = new javax.swing.JButton();
+        btnatender = new javax.swing.JButton();
+        btnmodificar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        btnalta.setBackground(new java.awt.Color(204, 204, 204));
+        btnalta.setText("Alta Trabajador");
+        btnalta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnaltaActionPerformed(evt);
+            }
+        });
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setText("Alta Trabajador");
+        btnbaja.setBackground(new java.awt.Color(204, 204, 204));
+        btnbaja.setText("Baja Trabajador");
+        btnbaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbajaActionPerformed(evt);
+            }
+        });
 
-        jButton2.setBackground(new java.awt.Color(204, 204, 204));
-        jButton2.setText("Baja Trabajador");
+        btnatender.setBackground(new java.awt.Color(204, 204, 204));
+        btnatender.setText("Atender");
 
-        jButton3.setBackground(new java.awt.Color(204, 204, 204));
-        jButton3.setText("Atender");
-
-        jButton4.setBackground(new java.awt.Color(204, 204, 204));
-        jButton4.setText("Modificar Stock");
+        btnmodificar.setBackground(new java.awt.Color(204, 204, 204));
+        btnmodificar.setText("Modificar Stock");
 
         jButton5.setBackground(new java.awt.Color(204, 204, 204));
         jButton5.setText("Ver Citas");
@@ -56,10 +90,10 @@ public class FormAdministracion extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnalta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnbaja, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                    .addComponent(btnatender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnmodificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -67,13 +101,13 @@ public class FormAdministracion extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jButton1)
+                .addComponent(btnalta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btnbaja)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(btnatender)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(btnmodificar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -81,6 +115,16 @@ public class FormAdministracion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnaltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaltaActionPerformed
+        FormAlta nuevaalta = new FormAlta(arrayUsuarios);
+        nuevaalta.setVisible(true);
+    }//GEN-LAST:event_btnaltaActionPerformed
+
+    private void btnbajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbajaActionPerformed
+        FormBaja nuevabaja = new FormBaja(arrayUsuarios);
+        nuevabaja.setVisible(true);
+    }//GEN-LAST:event_btnbajaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,10 +162,10 @@ public class FormAdministracion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnalta;
+    private javax.swing.JButton btnatender;
+    private javax.swing.JButton btnbaja;
+    private javax.swing.JButton btnmodificar;
     private javax.swing.JButton jButton5;
     // End of variables declaration//GEN-END:variables
 }

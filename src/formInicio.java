@@ -29,7 +29,7 @@ public class formInicio extends javax.swing.JFrame {
         arrayHoras = new ArrayList();
         arrayHorasCogidas = new ArrayList();
         arrayMisRegistros = new ArrayList();
-        arrayUsuarios= new ArrayList();
+        arrayUsuarios = new ArrayList();
         newusuario = new Usuarios("admin","1234",true);
         // AÑADIMOS EL USUARIO ADMIN
         arrayUsuarios.add(newusuario);
@@ -136,9 +136,9 @@ public class formInicio extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtpass, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
@@ -182,7 +182,8 @@ public class formInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_botonPedirCitaActionPerformed
 
     private void btnadministrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnadministrarActionPerformed
-        // TODO add your handling code here:
+        FormAdministracion nuevoadminstracion = new FormAdministracion(arrayHorasCogidas, arrayHoras, arrayMisRegistros,arrayUsuarios,conectado);
+        nuevoadminstracion.setVisible(true);
     }//GEN-LAST:event_btnadministrarActionPerformed
 
     private void txtpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassActionPerformed
@@ -213,8 +214,6 @@ public class formInicio extends javax.swing.JFrame {
                             botonPedirCita.setEnabled(false);
                             txtuser.setEnabled(false);
                             txtpass.setEnabled(false);
-                            JOptionPane.showMessageDialog(null, conectado.getDNI());
-                            JOptionPane.showMessageDialog(null, conectado.getNomusu());
                         }
                     }
                 }

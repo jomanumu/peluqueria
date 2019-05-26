@@ -12,9 +12,9 @@ import java.io.File;
  * @author KL1917
  */
 public class Usuarios extends trabajador{
-    String nomusu;
-    String password;
-    boolean admin;
+    private String nomusu;
+    private String password;
+    private boolean admin;
 
     public Usuarios(String nomusu, String password, boolean admin, String nombre, String DNI, File curriculum, String telefono, String email) {
         super(nombre, DNI, curriculum, telefono, email);
