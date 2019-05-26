@@ -20,7 +20,6 @@ public class trabajador {
     private File curriculum;
     private String telefono;
     private String email;
-    private String admin;
     
     /**
      * FUNCIÓN CONSTRUCTOR INICIAL
@@ -31,16 +30,14 @@ public class trabajador {
         this.curriculum = null;
         this.telefono = "";
         this.email = "";
-        this.admin = "";
     }
 
-    public trabajador(String nombre, String DNI, File curriculum, String telefono, String email, String admin) {
+    public trabajador(String nombre, String DNI, File curriculum, String telefono, String email) {
         this.nombre = nombre;
         this.DNI = DNI;
         this.curriculum = curriculum;
         this.telefono = telefono;
         this.email = email;
-        this.admin = admin;
     }
     
     /**
@@ -87,13 +84,4 @@ public class trabajador {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(String admin) {
-        this.admin = admin;
-    }
-    
 }

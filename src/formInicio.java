@@ -1,7 +1,6 @@
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,8 +15,11 @@ import javax.swing.JTextArea;
 public class formInicio extends javax.swing.JFrame { 
     formPedirCitas formPCitas;
     ArrayList<registros> arrayMisRegistros;
+    ArrayList<Usuarios> arrayUsuarios;
     ArrayList<String> arrayHorasCogidas;
     ArrayList<String> arrayHoras;
+    Usuarios newusuario;
+    Usuarios conectado;
     
      /**
      * Creates new form inicio
@@ -27,6 +29,11 @@ public class formInicio extends javax.swing.JFrame {
         arrayHoras = new ArrayList();
         arrayHorasCogidas = new ArrayList();
         arrayMisRegistros = new ArrayList();
+        arrayUsuarios= new ArrayList();
+        newusuario = new Usuarios("admin","1234",true);
+        // AÑADIMOS EL USUARIO ADMIN
+        arrayUsuarios.add(newusuario);
+        
         
         // AÑADIMOS LA HORAS DEL DIA
         arrayHoras.add("10");
@@ -56,8 +63,14 @@ public class formInicio extends javax.swing.JFrame {
     private void initComponents() {
 
         labelCabecera = new javax.swing.JLabel();
-        botonIniciarSesion = new javax.swing.JButton();
         botonPedirCita = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtuser = new javax.swing.JTextField();
+        txtpass = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        btnlogin = new javax.swing.JButton();
+        btnadministrar = new javax.swing.JButton();
+        btnlogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Peluquería \"El Cejas\"");
@@ -67,13 +80,7 @@ public class formInicio extends javax.swing.JFrame {
         labelCabecera.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelCabecera.setText("PELUQUERÍA");
 
-        botonIniciarSesion.setText("LOGUEARSE");
-        botonIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonIniciarSesionActionPerformed(evt);
-            }
-        });
-
+        botonPedirCita.setBackground(new java.awt.Color(204, 255, 255));
         botonPedirCita.setText("PEDIR CITA");
         botonPedirCita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,43 +88,153 @@ public class formInicio extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText(" Usuario");
+
+        txtpass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtpassActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Contraseña");
+
+        btnlogin.setBackground(new java.awt.Color(204, 255, 255));
+        btnlogin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnlogin.setText("Login");
+        btnlogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnloginActionPerformed(evt);
+            }
+        });
+
+        btnadministrar.setBackground(new java.awt.Color(204, 255, 255));
+        btnadministrar.setText("ADMINISTRACION");
+        btnadministrar.setEnabled(false);
+        btnadministrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnadministrarActionPerformed(evt);
+            }
+        });
+
+        btnlogout.setBackground(new java.awt.Color(204, 255, 255));
+        btnlogout.setText("Logout");
+        btnlogout.setEnabled(false);
+        btnlogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelCabecera, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelCabecera, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonPedirCita, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtpass, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                                    .addComponent(txtuser))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnlogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnlogout, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)))
+                            .addComponent(botonPedirCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnadministrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelCabecera)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonPedirCita, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtuser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnlogin))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(btnlogout))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnadministrar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonPedirCita)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarSesionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonIniciarSesionActionPerformed
-
     private void botonPedirCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPedirCitaActionPerformed
         formPCitas = new formPedirCitas(arrayHorasCogidas);
         formPCitas.setVisible(true);
     }//GEN-LAST:event_botonPedirCitaActionPerformed
+
+    private void btnadministrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnadministrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnadministrarActionPerformed
+
+    private void txtpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtpassActionPerformed
+
+    private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
+        if (txtuser.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Usuario Vacio");
+        }
+        else{
+            if (txtpass.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Campo Password Vacio");
+            }
+            else{
+                String nomusu = txtuser.getText();
+                String passw = txtpass.getText();
+                int contador = 0;
+                for (int i = 0; i < arrayUsuarios.size();i++){
+                    if (nomusu.equals(arrayUsuarios.get(i).getNomusu())){
+                        if (passw.equals(arrayUsuarios.get(i).getPassword())) { 
+                            contador ++;
+                            conectado = arrayUsuarios.get(i);
+                            JOptionPane.showMessageDialog(null, "Logueado Correctamente como " + conectado.getNomusu());
+                            btnadministrar.setEnabled(true);
+                            btnlogin.setEnabled(false);
+                            btnlogout.setEnabled(true);
+                            botonPedirCita.setEnabled(false);
+                            txtuser.setEnabled(false);
+                            txtpass.setEnabled(false);
+                            JOptionPane.showMessageDialog(null, conectado.getDNI());
+                            JOptionPane.showMessageDialog(null, conectado.getNomusu());
+                        }
+                    }
+                }
+                if (contador == 0){
+                    JOptionPane.showMessageDialog(null, "No existe esa combinacion de usuario y contraseña");
+                }
+            }
+        }
+    }//GEN-LAST:event_btnloginActionPerformed
+
+    private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
+        
+        conectado = null;
+        btnadministrar.setEnabled(false);
+        btnlogin.setEnabled(true);
+        btnlogout.setEnabled(false);
+        botonPedirCita.setEnabled(true);
+        txtuser.setEnabled(true);
+        txtpass.setEnabled(true);
+    }//GEN-LAST:event_btnlogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,8 +273,14 @@ public class formInicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonIniciarSesion;
     private javax.swing.JButton botonPedirCita;
+    private javax.swing.JButton btnadministrar;
+    private javax.swing.JButton btnlogin;
+    private javax.swing.JButton btnlogout;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel labelCabecera;
+    private javax.swing.JTextField txtpass;
+    private javax.swing.JTextField txtuser;
     // End of variables declaration//GEN-END:variables
 }
