@@ -17,6 +17,7 @@ public class formPedirCitas extends javax.swing.JFrame {
     ArrayList<registros> arrayMisRegistros;
     ArrayList<String> arrayHorasCogidas;
     
+    
     // CREAMOS EL OBJETO DE LA CLASE registros
     registros classRegistro;
     
@@ -38,15 +39,15 @@ public class formPedirCitas extends javax.swing.JFrame {
         textoNombre.requestFocus();
     }
     
-    public formPedirCitas(ArrayList<String> arrayHorasCogidas) {
+    public formPedirCitas(ArrayList<String> horascogidas, ArrayList<registros> MisRegistros) {
         initComponents();
-        arrayMisRegistros = new ArrayList();
-        this.arrayHorasCogidas = arrayHorasCogidas;
+        arrayMisRegistros = MisRegistros;
+        arrayHorasCogidas = horascogidas;
         
         // INICIALIZAMOS EL DÍA CON LAS HORAS DE CITAS
         for (int i = 10; i < 20; i++) {
             if (i != 14 && i != 15) {
-                if (!this.arrayHorasCogidas.contains(String.valueOf(i))){
+                if (!arrayHorasCogidas.contains(String.valueOf(i))){
                     jlistHoras.addItem(String.valueOf(i));
                 }
             }
@@ -159,46 +160,42 @@ public class formPedirCitas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonCogerCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCogerCitaActionPerformed
-        if (textoNombre.getText().equals("") || textoTelefono.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "ERROR. RELLENE TODOS LOS CAMPOS");
-        } else {
-            if (jlistHoras.getSize().getWidth() > 0) {
-                String horaSeleccionada = "";
-                int indiceSeleccionado = 0;
-                String nombreCliente = "";
-                String telefonoCliente = "";
-                arrayMisRegistros = new ArrayList();
 
-
-                // COGEMOS LOS DATOS DEL FORMULARIO DE PEDIR CITAS
-                try {
-                    horaSeleccionada = jlistHoras.getSelectedItem().toString();
-                    nombreCliente = textoNombre.getText();
-                    telefonoCliente = textoTelefono.getText();
-                    indiceSeleccionado = jlistHoras.getSelectedIndex();
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, e);
-                }
-
-                classRegistro = new registros(horaSeleccionada, nombreCliente, telefonoCliente);
-                arrayMisRegistros.add(classRegistro);
-
-                int tamArrayRegistros = arrayMisRegistros.size();
-                for (int i = 0; i < tamArrayRegistros; i++) {
-                    JOptionPane.showMessageDialog(null, arrayMisRegistros.get(i).getNombre_cliente());
-                }
-                jlistHoras.removeItemAt(indiceSeleccionado);
-                jlistHoras.updateUI();
+            if (textoNombre.getText().equals("") || textoTelefono.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "ERROR. RELLENE TODOS LOS CAMPOS");
             } else {
-                JOptionPane.showMessageDialog(null, "SE ACABARON LAS CITAS POR HOY, GRACIAS...");
+                if (jlistHoras.getSelectedIndex() !=  -1) {
+                    String horaSeleccionada = "";
+                    int indiceSeleccionado = 0;
+                    String nombreCliente = "";
+                    String telefonoCliente = "";
+
+
+                    // COGEMOS LOS DATOS DEL FORMULARIO DE PEDIR CITAS
+                    try {
+                        horaSeleccionada = jlistHoras.getSelectedItem().toString();
+                        nombreCliente = textoNombre.getText();
+                        telefonoCliente = textoTelefono.getText();
+                        indiceSeleccionado = jlistHoras.getSelectedIndex();
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, e);
+                    }
+
+                    classRegistro = new registros(horaSeleccionada, nombreCliente, telefonoCliente);
+                    arrayMisRegistros.add(classRegistro);
+                    JOptionPane.showMessageDialog(null," Cita Reservada a la hora " + horaSeleccionada + ". Gracias ");
+                    JOptionPane.showMessageDialog(null, classRegistro.toString());
+                    arrayHorasCogidas.add(jlistHoras.getSelectedItem().toString());
+                    jlistHoras.removeItemAt(indiceSeleccionado);
+                    jlistHoras.updateUI();
+                } else {
+                    JOptionPane.showMessageDialog(null, "SE ACABARON LAS CITAS POR HOY, GRACIAS...");
+                }
             }
-        }
     }//GEN-LAST:event_botonCogerCitaActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
 
-        formInicio formularioInicio = new formInicio(arrayMisRegistros, arrayHorasCogidas);
-        formularioInicio.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
     /**

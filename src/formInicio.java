@@ -16,10 +16,12 @@ public class formInicio extends javax.swing.JFrame {
     formPedirCitas formPCitas;
     ArrayList<registros> arrayMisRegistros;
     ArrayList<Usuarios> arrayUsuarios;
+    ArrayList<producto> arrayProductos;
     ArrayList<String> arrayHorasCogidas;
     ArrayList<String> arrayHoras;
     Usuarios newusuario;
     Usuarios conectado;
+    producto newproducto;
     
      /**
      * Creates new form inicio
@@ -27,13 +29,28 @@ public class formInicio extends javax.swing.JFrame {
     public formInicio() {
         initComponents();
         arrayHoras = new ArrayList();
+        arrayProductos = new ArrayList();
         arrayHorasCogidas = new ArrayList();
         arrayMisRegistros = new ArrayList();
         arrayUsuarios = new ArrayList();
-        newusuario = new Usuarios("admin","1234",true);
+        
         // AÑADIMOS EL USUARIO ADMIN
+        newusuario = new Usuarios("admin","1234",true);
         arrayUsuarios.add(newusuario);
         
+        // AÑADIMOS PRODUCTOS
+        if (arrayProductos.size() == 0){
+            newproducto = new producto("1","Gomina", 4.99, "Almacen", 20, "Nunca");
+            arrayProductos.add(newproducto);
+            newproducto = new producto("2","Tinte Rubio", 2.99, "Almacen", 20, "Nunca");
+            arrayProductos.add(newproducto);
+            newproducto = new producto("3","Acondicionador", 4.59, "Almacen", 20, "Nunca");
+            arrayProductos.add(newproducto);
+            newproducto = new producto("4","Laca", 2.99, "Almacen", 20, "Nunca");
+            arrayProductos.add(newproducto);
+            newproducto = new producto("5","Guantes", 2.99, "Almacen", 20, "Nunca");
+            arrayProductos.add(newproducto);
+        }
         
         // AÑADIMOS LA HORAS DEL DIA
         arrayHoras.add("10");
@@ -46,12 +63,6 @@ public class formInicio extends javax.swing.JFrame {
         arrayHoras.add("19");        
     }
     
-    public formInicio (ArrayList<registros> regClientes, ArrayList<String> arrayHorasCogidas) {
-        initComponents();
-        this.arrayMisRegistros = regClientes;
-        this.arrayHorasCogidas = arrayHorasCogidas;
-        arrayHoras = new ArrayList();      
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -177,12 +188,12 @@ public class formInicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonPedirCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPedirCitaActionPerformed
-        formPCitas = new formPedirCitas(arrayHorasCogidas);
-        formPCitas.setVisible(true);
+        formPedirCitas nuevoformpedircitas = new formPedirCitas(arrayHorasCogidas, arrayMisRegistros);
+        nuevoformpedircitas.setVisible(true);
     }//GEN-LAST:event_botonPedirCitaActionPerformed
 
     private void btnadministrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnadministrarActionPerformed
-        FormAdministracion nuevoadminstracion = new FormAdministracion(arrayHorasCogidas, arrayHoras, arrayMisRegistros,arrayUsuarios,conectado);
+        FormAdministracion nuevoadminstracion = new FormAdministracion(arrayHorasCogidas, arrayHoras, arrayMisRegistros, arrayUsuarios, arrayProductos, conectado);
         nuevoadminstracion.setVisible(true);
     }//GEN-LAST:event_btnadministrarActionPerformed
 

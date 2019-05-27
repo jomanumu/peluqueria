@@ -13,8 +13,9 @@ import java.util.ArrayList;
  */
 public class FormAdministracion extends javax.swing.JFrame {
 
-    ArrayList<registros> arrayMisRegistros;
     ArrayList<Usuarios> arrayUsuarios;
+    ArrayList<registros> arrayMisRegistros;
+    ArrayList<producto> arrayProductos;
     ArrayList<String> arrayHorasCogidas;
     ArrayList<String> arrayHoras;
     Usuarios conectado;
@@ -24,9 +25,12 @@ public class FormAdministracion extends javax.swing.JFrame {
     public FormAdministracion() {
         initComponents();
     }
-    public FormAdministracion(ArrayList<String> horascogidas, ArrayList<String> horas, ArrayList<registros> misregistros, ArrayList<Usuarios> usuarios,  Usuarios conected ) {
+    public FormAdministracion(ArrayList<String> horascogidas, ArrayList<String> horas, 
+                                ArrayList<registros> misregistros, ArrayList<Usuarios> usuarios, 
+                                            ArrayList<producto> productos,  Usuarios conected ) {
         initComponents();
         arrayMisRegistros = misregistros;
+        arrayProductos = productos;
         arrayUsuarios = usuarios;
         arrayHorasCogidas = horascogidas;
         arrayHoras = horas;
@@ -56,7 +60,7 @@ public class FormAdministracion extends javax.swing.JFrame {
         btnbaja = new javax.swing.JButton();
         btnatender = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnvercitas = new javax.swing.JButton();
 
         btnalta.setBackground(new java.awt.Color(204, 204, 204));
         btnalta.setText("Alta Trabajador");
@@ -76,12 +80,27 @@ public class FormAdministracion extends javax.swing.JFrame {
 
         btnatender.setBackground(new java.awt.Color(204, 204, 204));
         btnatender.setText("Atender");
+        btnatender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnatenderActionPerformed(evt);
+            }
+        });
 
         btnmodificar.setBackground(new java.awt.Color(204, 204, 204));
         btnmodificar.setText("Modificar Stock");
+        btnmodificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnmodificarActionPerformed(evt);
+            }
+        });
 
-        jButton5.setBackground(new java.awt.Color(204, 204, 204));
-        jButton5.setText("Ver Citas");
+        btnvercitas.setBackground(new java.awt.Color(204, 204, 204));
+        btnvercitas.setText("Ver Citas");
+        btnvercitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnvercitasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,7 +113,7 @@ public class FormAdministracion extends javax.swing.JFrame {
                     .addComponent(btnbaja, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
                     .addComponent(btnatender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnmodificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnvercitas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -109,7 +128,7 @@ public class FormAdministracion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnmodificar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
+                .addComponent(btnvercitas)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -125,6 +144,21 @@ public class FormAdministracion extends javax.swing.JFrame {
         FormBaja nuevabaja = new FormBaja(arrayUsuarios);
         nuevabaja.setVisible(true);
     }//GEN-LAST:event_btnbajaActionPerformed
+
+    private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
+        FormModificarStock nuevomodificar = new FormModificarStock(arrayProductos);
+        nuevomodificar.setVisible(true);
+    }//GEN-LAST:event_btnmodificarActionPerformed
+
+    private void btnvercitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvercitasActionPerformed
+        FormVerCitas nuevovercitas = new FormVerCitas(arrayMisRegistros);
+        nuevovercitas.setVisible(true);
+    }//GEN-LAST:event_btnvercitasActionPerformed
+
+    private void btnatenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnatenderActionPerformed
+        FormAtender nuevoatender = new FormAtender(arrayMisRegistros, arrayProductos);
+        nuevoatender.setVisible(true);
+    }//GEN-LAST:event_btnatenderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,6 +200,6 @@ public class FormAdministracion extends javax.swing.JFrame {
     private javax.swing.JButton btnatender;
     private javax.swing.JButton btnbaja;
     private javax.swing.JButton btnmodificar;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnvercitas;
     // End of variables declaration//GEN-END:variables
 }

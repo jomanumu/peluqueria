@@ -62,6 +62,11 @@ public class registros {
     public void setTelefono_cliente(String telefono_cliente) {
         this.telefono_cliente = telefono_cliente;
     }
+
+    @Override
+    public String toString() {
+        return "\n Hora: " + hora + "- Cliente: " + nombre_cliente + " - Telefono: " + telefono_cliente;
+    }
     
     
     
